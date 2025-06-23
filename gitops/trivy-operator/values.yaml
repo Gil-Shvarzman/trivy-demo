@@ -1,0 +1,19 @@
+trivyOperator:
+  # Helm chart 0.29.1 (June 2025)
+  image:
+    tag: "0.29.1"
+
+operator:
+  # Watch every namespace except kube-system and its own
+  targetNamespaces: [ "*" ]
+  excludeNamespaces: [ "kube-system", "trivy-system" ]
+
+trivy:
+  ignoreUnfixed: true
+  securityChecks: "vuln,config,secret,rbac"
+
+admissionController:
+  enabled: false   # set to true if you also want pre-deploy blocking
+cronjobs:
+  scans:
+    enabled: true   # periodic re-scan
